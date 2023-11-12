@@ -1,0 +1,22 @@
+/* Adicione esses estilos em um arquivo CSS separado */
+.cart-animation-enter {
+    opacity: 0;
+    transform: translateY(-100%);
+}
+
+.cart-animation-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.cart-animation-exit {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cart-animation-exit-active {
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: opacity 300ms, transform 300ms;
+}
