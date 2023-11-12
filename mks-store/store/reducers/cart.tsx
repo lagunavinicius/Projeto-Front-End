@@ -24,16 +24,10 @@ const GlobalReducer = createSlice({
 
             const existingItem = state.cartList.find((item: any) => item.id === id);
 
-            if (existingItem) {
-                state.price -= parseInt(existingItem.price);
-
-                state.cartList = state.cartList.filter((item: any) => item.id !== id);
+            if (!existingItem) {
+                state.cartList.push({...action.payload, amount: 1, price: Number(price).toFixed(0)});
+                state.price += parseInt(price);
             }
-
-            state.cartList.push({...action.payload, amount: 1, price: Number(price).toFixed(0)});
-
-            state.price += parseInt(price);
-
 
         },
 
@@ -45,8 +39,10 @@ const GlobalReducer = createSlice({
                 const indexToRemove = state.cartList.findIndex((item: any) => item.id === id);
 
                 if (indexToRemove !== -1) {
+                    state.price -= price * state.cartList[indexToRemove].amount;
                     state.cartList.splice(indexToRemove, 1);
-                    state.price -= price * amount;
+
+                    // Atualizar o carrinho no lado do servidor após a remoção do item
                 }
             } catch (error) {
                 console.error("Erro ao remover item do carrinho:", error);

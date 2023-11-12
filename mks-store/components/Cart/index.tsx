@@ -73,7 +73,7 @@ const Item = (props: Product) => {
             <div className="name">
                 <p>{name}</p>
             </div>
-            <CustomInput callback={changeItemAmount} />
+            <CustomInput callback={changeItemAmount} amount={amount}/>
             <div className="price">
                 R$ {amount * Number(price) }
             </div>
@@ -86,17 +86,13 @@ const Item = (props: Product) => {
     )
 }
 
-const CustomInput = ({ callback }: { callback: (arg: string) => void }) => {
-    const [amount, setAmount] = React.useState(1);
-
+const CustomInput = ({ callback, amount }: { callback: (arg: string) => void, amount: number }) => {
     const handleDecrease = () => {
         callback("rem");
-        setAmount(Math.max(1, amount - 1));
     };
 
     const handleIncrease = () => {
         callback("add");
-        setAmount(amount + 1);
     };
 
     return (
